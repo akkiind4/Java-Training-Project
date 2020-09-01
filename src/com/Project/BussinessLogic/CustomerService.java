@@ -12,10 +12,6 @@ public class CustomerService {
 				return CustomerDao.checkValidCustomer(customer);
 				
 			}
-	
-	
-	
-	
 		public double CustomerDeposit(){ //deposited amount is returned for admin to verify
 			return 0;
 			}

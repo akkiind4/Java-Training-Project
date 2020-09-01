@@ -4,7 +4,7 @@ public class Customer extends User {
 			private String customerID;
 			private String accountNumber;
 			private double balance;
-			private String customnerPwd;
+			private String customerPwd;
 			public Customer(){
 			}
 			public Customer(String customerID, String accountNumber,
@@ -13,7 +13,7 @@ public class Customer extends User {
 				this.customerID = customerID;
 				this.accountNumber = accountNumber;
 				this.balance = balance;
-				this.customnerPwd = customnerPwd;
+				this.customerPwd = customnerPwd;
 			}
 			public String getCustomerID() {
 				return customerID;
@@ -34,15 +34,15 @@ public class Customer extends User {
 				this.balance = balance;
 			}
 			public String getCustomnerPwd() {
-				return customnerPwd;
+				return customerPwd;
 			}
 			public void setCustomnerPwd(String customnerPwd) {
-				this.customnerPwd = customnerPwd;
+				this.customerPwd = customnerPwd;
 			}
 			public String toString() {
 				return "Customer [customerID=" + customerID
 						+ ", accountNumber=" + accountNumber + ", balance="
-						+ balance + ", customnerPwd=" + customnerPwd + "]";
+						+ balance + ", customnerPwd=" + customerPwd + "]";
 			}
 			public int hashCode() {
 				final int prime = 31;

@@ -16,7 +16,7 @@ public class ConnectionFactory {
 			e.printStackTrace();
 		}
 		try {
-			return connection= DriverManager.getConnection("jdbc:mysql://localhost:3306/obs","root","root");
+			return connection= DriverManager.getConnection("jdbc:mysql://localhost:3306/obs","root","admin");
 		} catch (SQLException e) {
 		
 			e.printStackTrace();
