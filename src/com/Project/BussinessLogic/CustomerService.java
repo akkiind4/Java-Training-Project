@@ -1,6 +1,18 @@
 package com.Project.BussinessLogic;
 
+import java.sql.SQLException;
+
+import com.Project.Dao.CustomerDao;
+import com.Project.bean.Customer;
+
 public class CustomerService {
+	
+			public boolean checkValidCustomer(Customer customer) throws SQLException{
+				CustomerDao customerDao=new CustomerDao();
+				return CustomerDao.checkValidCustomer(customer);
+				
+			}
+	
 	
 	
 	
