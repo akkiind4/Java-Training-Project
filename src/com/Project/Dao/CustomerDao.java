@@ -32,5 +32,29 @@ public class CustomerDao {
 			ConnectionFactory.CloseDatabaseObjects(resultset, preparedStatement, connection);
 		}
 	}
-		
-}
+	public boolean UpdatePassword(Customer customer,String newPassword){ //deposited amount is returned for admin to verify 
+		Connection connection = null; 
+		PreparedStatement preparedStatement = null; 
+		ResultSet resultset = null; 
+		try{ 
+			connection = ConnectionFactory.getConnection(); 
+			String custId=customer.getCustomerID(); 
+			String template = "update Customer set password = ? where custId = ?"; 
+			preparedStatement=connection.prepareStatement(template); 
+			preparedStatement.setString(1, newPassword); 
+			preparedStatement.setString(2, custId); 
+			preparedStatement.executeBatch(); 
+			} 
+		catch (SQLException e) 
+		{ // TODO Auto-generated catch block 
+			e.printStackTrace(); 
+			return true;
+			} 
+		finally 
+		{ 
+			ConnectionFactory.CloseDatabaseObjects(resultset, preparedStatement, connection); 
+			} 
+		return false; 
+		}	
+	}
+
