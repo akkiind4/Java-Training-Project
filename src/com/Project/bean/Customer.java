@@ -3,22 +3,22 @@ package com.Project.bean;
 public class Customer extends User {
 			private String customerID;
 			private String accountNumber;
-			private double balance;
-			private String customerPwd;
+			private String customerbalance;
+			private String customnerPwd;
 			public Customer(){
 			}
-			public Customer(String customerID, String accountNumber,
-					double balance, String customnerPwd) {
-				super();
+			public Customer(String customerID, String accountNumber,String name,String address,String mobileNumber,
+					 String customnerPwd,String balance) {
+				super(name,address,mobileNumber);
 				this.customerID = customerID;
 				this.accountNumber = accountNumber;
-				this.balance = balance;
-				this.customerPwd = customnerPwd;
+				this.customerbalance = balance;
+				this.customnerPwd = customnerPwd;
 			}
 			public String getCustomerID() {
 				return customerID;
 			}
-			public void setCustomerID(String customerID) {
+			public void setCustomerID(String customerId2) {
 				this.customerID = customerID;
 			}
 			public String getAccountNumber() {
@@ -27,23 +27,19 @@ public class Customer extends User {
 			public void setAccountNumber(String accountNumber) {
 				this.accountNumber = accountNumber;
 			}
-			public double getBalance() {
-				return balance;
+			public String getCustomerBalance() {
+				return customerbalance;
 			}
-			public void setBalance(double balance) {
-				this.balance = balance;
+			public void setCustomerBalance(String customerBalance) {
+				this.customerbalance = customerBalance;
 			}
 			public String getCustomnerPwd() {
-				return customerPwd;
+				return customnerPwd;
 			}
 			public void setCustomnerPwd(String customnerPwd) {
-				this.customerPwd = customnerPwd;
+				this.customnerPwd = customnerPwd;
 			}
-			public String toString() {
-				return "Customer [customerID=" + customerID
-						+ ", accountNumber=" + accountNumber + ", balance="
-						+ balance + ", customnerPwd=" + customerPwd + "]";
-			}
+			
 			public int hashCode() {
 				final int prime = 31;
 				int result = 1;

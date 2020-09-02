@@ -9,12 +9,12 @@ public class User {
 			public User(){
 			}
 
-			public User(String name, String address, String mobileNumber,String emailId) {
+			public User(String name, String address, String mobileNumber) {
 				super();
 				this.name = name;
 				this.address = address;
 				this.mobileNumber = mobileNumber;
-				this.emailId=emailId;
+				//this.emailId=emailId;
 			}
 
 			public String getName() {
@@ -50,9 +50,9 @@ public class User {
 				this.emailId = emailId;
 			}
 
-			public String toString() {
-				return "Person [name=" + name + ", address=" + address
-						+ ", mobilenumber=" + mobileNumber + ",emailId="+emailId+"]";
-			}
+//			public String toString() {
+//				return "Person [name=" + name + ", address=" + address
+//						+ ", mobilenumber=" + mobileNumber + ",emailId="+emailId+"]";
+//			}
 			
 }

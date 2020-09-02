@@ -7,22 +7,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
-		public static Connection getConnection(){
-		Connection connection = null;
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			
-			e.printStackTrace();
-		}
-		try {
-			return connection= DriverManager.getConnection("jdbc:mysql://localhost:3306/obs","root","admin");
-		} catch (SQLException e) {
+	
+private static Connection connection;
+
+	static
+	{
+		//load the driver
 		
+		
+		//get the db connection
+		try {
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/obs","root","root");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}//db url
+	}
+
+	public static Connection getConnection() {
 		return connection;
-		}
+	}
 		public static void CloseDatabaseObjects(ResultSet resultset,PreparedStatement preparedStatement,Connection connection){
 			try{
 				if(resultset!=null && !resultset.isClosed())
