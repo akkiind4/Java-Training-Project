@@ -39,7 +39,7 @@ public class Client {
 				e.printStackTrace();
 			}
 				
-				if(p==cusServ.checkValidCustomer(customer))
+				if(p==true)
 				{ 
 					customer1=cusServ.getCustomerDetails(customerId);
 					System.out.println("Welcome "+ customerId);

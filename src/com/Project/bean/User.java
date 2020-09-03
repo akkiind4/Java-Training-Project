@@ -1,20 +1,38 @@
 package com.Project.bean;
+import java.util.Date;
+
 
 public class User {
-			private String name;
+			private String  userId;
+			private String	name;
 			private String address;
-			private String mobileNumber;
-			private String emailId;
+			private String mobileNo;
+			private String occupation;
+			private  Date dob;
+			private String password;
 			
 			public User(){
 			}
 
-			public User(String name, String address, String mobileNumber) {
+			public User(String userId, String name, String address,
+					String mobileNo, String occupation, Date dob,
+					String password) {
 				super();
+				this.userId = userId;
 				this.name = name;
 				this.address = address;
-				this.mobileNumber = mobileNumber;
-				//this.emailId=emailId;
+				this.mobileNo = mobileNo;
+				this.occupation = occupation;
+				this.dob = dob;
+				this.password = password;
+			}
+
+			public String getUserId() {
+				return userId;
+			}
+
+			public void setUserId(String userId) {
+				this.userId = userId;
 			}
 
 			public String getName() {
@@ -33,26 +51,43 @@ public class User {
 				this.address = address;
 			}
 
-			public String getMobilenumber() {
-				return mobileNumber;
+			public String getMobileNo() {
+				return mobileNo;
 			}
 
-			public void setMobilenumber(String mobilenumber) {
-				this.mobileNumber = mobilenumber;
-			}
-			
-
-			public String getEmailId() {
-				return emailId;
+			public void setMobileNo(String mobileNo) {
+				this.mobileNo = mobileNo;
 			}
 
-			public void setEmailId(String emailId) {
-				this.emailId = emailId;
+			public String getOccupation() {
+				return occupation;
 			}
 
-//			public String toString() {
-//				return "Person [name=" + name + ", address=" + address
-//						+ ", mobilenumber=" + mobileNumber + ",emailId="+emailId+"]";
-//			}
-			
+			public void setOccupation(String occupation) {
+				this.occupation = occupation;
+			}
+
+			public Date getDob() {
+				return dob;
+			}
+
+			public void setDob(Date dob) {
+				this.dob = dob;
+			}
+
+			public String getPassword() {
+				return password;
+			}
+
+			public void setPassword(String password) {
+				this.password = password;
+			}
+
+			public String toString() {
+				return "User [userId=" + userId + ", name=" + name
+						+ ", address=" + address + ", mobileNo=" + mobileNo
+						+ ", occupation=" + occupation + ", dob=" + dob
+						+ ", password=" + password + "]";
+			}
+
 }
