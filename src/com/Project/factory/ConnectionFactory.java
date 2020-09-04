@@ -17,7 +17,7 @@ private static Connection connection;
 		
 		//get the db connection
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/obs","root","root");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank","root","root");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

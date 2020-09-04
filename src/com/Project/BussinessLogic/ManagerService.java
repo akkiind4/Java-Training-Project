@@ -1,8 +1,8 @@
 package com.Project.BussinessLogic;
 
-import com.Project.bean.Employee;
+import com.Project.bean.User;
 
-public class ManagerService extends Employee {
+public class ManagerService{
 		
 	
 	public void ViewTransactionHistory(){

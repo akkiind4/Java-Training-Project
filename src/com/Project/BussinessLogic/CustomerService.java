@@ -1,30 +1,30 @@
 package com.Project.BussinessLogic;
 
+
+
 import java.sql.SQLException;
 
 import com.Project.Dao.CustomerDao;
-import com.Project.bean.Customer;
+import com.Project.bean.User;
+import com.Project.bean.User;
 
 public class CustomerService {
 	
-			public boolean checkValidCustomer(Customer customer) throws SQLException{
+			public Double getCustomerBalance(String userId) throws SQLException{
 				CustomerDao customerDao=new CustomerDao();
-				return CustomerDao.checkValidCustomer(customer);
-				
-			}
-			
-			public Customer getCustomerDetails(String customerID) throws SQLException{ //Customer's final balance
-				CustomerDao customerDao=new CustomerDao();
-				Customer customer=customerDao.getCustomerDetails(customerID);
-				return customer;
+				return customerDao.getCustomerBalance(userId);
 				
 			}
 	
-	
-		public double CustomerDeposit(double amount){ //deposited amount is returned for admin to verify
-			
-			
-			return 0;
+		public double CustomerDeposit(String userId,double amount)throws SQLException{ //deposited amount is returned for admin to verify
+			CustomerDao customerDao = new CustomerDao();
+			try {
+				return customerDao.CustomerDeposit(userId,amount);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return -1;
 			}
 		public double CustomerWithdrawal(double amount){ //Withdrawal amount verified by admin
 			return 0;
@@ -35,9 +35,5 @@ public class CustomerService {
 			
 		}
 
-		public boolean UpdatePassword(Customer customer, String pass) throws SQLException {
-			CustomerDao customerDao=new CustomerDao();
-			return customerDao.UpdatePassword(customer,pass);
-			
-		}
+	
 }

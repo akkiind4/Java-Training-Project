@@ -1,16 +1,18 @@
 package com.Project.BussinessLogic;
 
-import com.Project.bean.Employee;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-public class AdminService extends Employee {
+import com.Project.bean.User;
+
+public class AdminService{
 		
 	
-	public void CustomerPwdUpdation(){
-		
-	}
-	public boolean VerifyBalance(){  //verfying his min balance
-		return false;
-		
+	public boolean deleteUser(int userId)throws SQLException,IOException{
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
 	}
 	
 }
