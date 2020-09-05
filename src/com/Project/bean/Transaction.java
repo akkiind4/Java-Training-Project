@@ -3,23 +3,31 @@ package com.Project.bean;
 import java.util.Date;
 
 public class Transaction {
-		private double amount;
+		private double credit;
+		private double debit;
 		private Date transactionTime;
 		private double avlBalance;
 		public Transaction(){
 		}
-		public Transaction(double amount, Date transactionTime,
+		public Transaction(double credit, double debit, Date transactionTime,
 				double avlBalance) {
 			super();
-			this.amount = amount;
+			this.credit = credit;
+			this.debit = debit;
 			this.transactionTime = transactionTime;
 			this.avlBalance = avlBalance;
 		}
-		public double getAmount() {
-			return amount;
+		public double getCredit() {
+			return credit;
 		}
-		public void setAmount(double amount) {
-			this.amount = amount;
+		public void setCredit(double credit) {
+			this.credit = credit;
+		}
+		public double getDebit() {
+			return debit;
+		}
+		public void setDebit(double debit) {
+			this.debit = debit;
 		}
 		public Date getTransactionTime() {
 			return transactionTime;
@@ -33,9 +41,10 @@ public class Transaction {
 		public void setAvlBalance(double avlBalance) {
 			this.avlBalance = avlBalance;
 		}
+		@Override
 		public String toString() {
-			return "Transaction [amount=" + amount + ", transactionTime="
-					+ transactionTime + ", avlBalance=" + avlBalance + "]";
+			return "Transaction [credit=" + credit + ", debit=" + debit
+					+ ", transactionTime=" + transactionTime + ", avlBalance="
+					+ avlBalance + "]";
 		}
-		
 }
