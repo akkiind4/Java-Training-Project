@@ -1,6 +1,7 @@
 package com.Project.Dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +10,7 @@ import com.Project.bean.Account;
 import com.Project.bean.Role;
 import com.Project.bean.User;
 import com.Project.factory.ConnectionFactory;
-
+import com.fun.Encryption;
 public class AdminDao {
 
 	public boolean AddCustomer(User user, Account account, Role role)
@@ -22,15 +23,16 @@ public class AdminDao {
 
 		int count = 0;
 		try {
+			String pass=Encryption.encrypt(user.getPassword());
 			connection = ConnectionFactory.getConnection();
 			preparedStatement = connection.prepareStatement(SQL_INSERT);
 			// preparedStatement.setString(1,user.getUserId());
-			preparedStatement.setString(6, user.getPassword());
+			preparedStatement.setString(6, pass);
 			preparedStatement.setString(2, user.getAddress());
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(3, user.getMobileNo());
 			preparedStatement.setString(4, user.getOccupation());
-			preparedStatement.setString(5, user.getDob());
+			preparedStatement.setDate(5, (Date) user.getDob());
 			count = preparedStatement.executeUpdate();
 
 			SQL_INSERT = "select userid from user order by userid desc limit 1";

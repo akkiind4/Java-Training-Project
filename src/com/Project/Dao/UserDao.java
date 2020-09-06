@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import com.Project.bean.Role;
 import com.Project.bean.User;
 import com.Project.factory.ConnectionFactory;
+import com.fun.Encryption;
 
 public class UserDao {
 
@@ -16,13 +17,15 @@ public class UserDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultset = null;
+		String pass=Encryption.encrypt(user.getPassword());
+		System.out.println(pass);
 		String temp="select * from user where userid = ? and password = ?";
 		try{
 		connection = ConnectionFactory.getConnection();
 		
 		preparedStatement=connection.prepareStatement(temp);
 		preparedStatement.setString(1,user.getUserId());
-		preparedStatement.setString(2,user.getPassword());	
+		preparedStatement.setString(2,pass);	
 			 resultset = preparedStatement.executeQuery();
 //			  java.sql.ResultSetMetaData rsmd = resultset.getMetaData();
 //			  System.out.println(rsmd);

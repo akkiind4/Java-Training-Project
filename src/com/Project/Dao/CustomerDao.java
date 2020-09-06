@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -20,28 +20,7 @@ import com.Project.factory.ConnectionFactory;
 
 public class CustomerDao {
 
-	/*
-	 * public User getCustomerDetails(String userId) throws SQLException{
-	 * Connection connection = null; PreparedStatement preparedStatement = null;
-	 * ResultSet resultset = null;
-	 * 
-	 * try{ connection = ConnectionFactory.getConnection(); preparedStatement =
-	 * connection.prepareStatement("select * from user where userid = ?");
-	 * preparedStatement.setString(1,userId);
-	 * resultset=preparedStatement.executeQuery(); while(resultset.next()){ User
-	 * user=new
-	 * User(resultset.getString(1),resultset.getString(2),resultset.getString
-	 * (3), resultset.getString(4),resultset.getString(5),resultset.getDate(6),
-	 * resultset.getString(7)); return user;
-	 * 
-	 * User.setCustomerBalance(customerBalance); } }catch(SQLException e){ throw
-	 * e; }finally{ //ConnectionFactory.CloseDatabaseObjects(resultset,
-	 * preparedStatement, connection); }
-	 * 
-	 * return null;
-	 * 
-	 * }
-	 */
+	long millis=System.currentTimeMillis();
 	public Double getCustomerBalance(String userId) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -74,7 +53,7 @@ public class CustomerDao {
 		double avlbalance = 0;
 		int accountno = 0;
 		int count = 0;
-		Date date = new Date();
+		Date date = new Date(millis);
 		// SimpleDateFormat ft = new SimpleDateFormat ("MM/dd/yyyy HH:mm:ss");
 		java.sql.Date transactiontime = new java.sql.Date(date.getTime());
 
@@ -97,7 +76,7 @@ public class CustomerDao {
 			preparedStatement.setInt(1, Integer.parseInt(userid));
 			preparedStatement.setInt(2, accountno);
 			preparedStatement.setDouble(3, credited);
-			preparedStatement.setDate(4,new java.sql.Date(new Date().getTime()));
+			preparedStatement.setDate(4,new Date(System.currentTimeMillis()));
 			preparedStatement.setDouble(5, avlbalance);
 			count = preparedStatement.executeUpdate();
 
@@ -125,7 +104,7 @@ public class CustomerDao {
 		double avlbalance = 0;
 		int accountno =0;
 		int count = 0;
-		Date date = new Date();
+		Date date = new Date(millis);
 		// SimpleDateFormat ft = new SimpleDateFormat ("MM/dd/yyyy HH:mm:ss");
 		java.sql.Date transactiontime = new java.sql.Date(date.getTime());
 
@@ -150,7 +129,7 @@ public class CustomerDao {
 			preparedStatement.setInt(2, accountno);
 			preparedStatement.setDouble(3, debited);
 			preparedStatement.setDate(4,
-					new java.sql.Date(new Date().getTime()));
+					new java.sql.Date(new Date(millis).getTime()));
 			preparedStatement.setDouble(5, avlbalance);
 			count = preparedStatement.executeUpdate();
 
@@ -193,7 +172,7 @@ public class CustomerDao {
 	 */
 
 	public List<Transaction> ViewTranscationHistoryBetweenDates(String userId,
-			String fromDate, String toDate) throws SQLException {
+			java.util.Date date1, java.util.Date date2) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultset = null;
@@ -205,8 +184,8 @@ public class CustomerDao {
 			preparedStatement = connection
 					.prepareStatement("SELECT * FROM transaction where transactionDate between ? and ? and userid=?");
 			preparedStatement.setInt(3,Integer.parseInt(userId));
-			preparedStatement.setDate(1, java.sql.Date.valueOf(fromDate));
-			preparedStatement.setDate(2, java.sql.Date.valueOf(toDate));
+			preparedStatement.setDate(1,(java.sql.Date) date1);
+			preparedStatement.setDate(2,(java.sql.Date) date2);
 
 			resultset = preparedStatement.executeQuery();
 

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Random;
@@ -16,12 +16,14 @@ import java.util.concurrent.TimeUnit;
 
 import com.Project.BussinessLogic.AdminService;
 import com.Project.BussinessLogic.CustomerService;
+import com.Project.BussinessLogic.ManagerService;
 import com.Project.BussinessLogic.UserService;
 import com.Project.Dao.AdminDao;
 import com.Project.bean.Account;
 import com.Project.bean.Role;
 import com.Project.bean.Transaction;
 import com.Project.bean.User;
+import com.fun.Encryption;
 
 public class Client {
 
@@ -37,9 +39,13 @@ public class Client {
 		boolean p = false;
 		String fromDate = "";
 		String toDate = "";
-
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-mm-dd");
+		
+		
 		UserService uService = new UserService();
 		User user = new User();
+		ManagerService mService = new ManagerService();
+		
 		System.out.println("Welcome to Online Banking System!!!");
 		System.out.println("Please enter your credentials:");
 
@@ -140,19 +146,17 @@ public class Client {
 							.println("Enter the dates to view the Transaction Statement");
 					System.out.println("Enter the FromDate as yyyy-mm-dd:");
 					fromDate = sc.nextLine();
-
+					Date fromDate1 = Date.valueOf(fromDate);
 					System.out.println("Enter the ToDate as yyyy-mm-dd:");
 					toDate = sc.nextLine();
-					if (java.sql.Date.valueOf(fromDate).compareTo(
-							java.sql.Date.valueOf(toDate)) > 0) {
+					Date toDate1 = Date.valueOf(toDate);
+					if (fromDate.compareTo (toDate) > 0) {
 						System.out.println("Please enter valid dates.");
 						break;
 					}
 
 					List<Transaction> transaction = new ArrayList<Transaction>();
-					transaction = cusService
-							.ViewTranscationHistoryBetweenDates(userId,
-									fromDate, toDate);
+					transaction = cusService.ViewTranscationHistoryBetweenDates(userId,fromDate1, toDate1);
 					for (Transaction t : transaction) {
 						System.out.println(t);
 					}
@@ -210,7 +214,9 @@ public class Client {
 					System.out.println("Enter occupation:");
 					String occupation=sc1.nextLine();
 					System.out.println("Enter dob:");
-					String dob=sc1.nextLine();
+					String dob1=sc1.nextLine();
+				//	SimpleDateFormat f = new SimpleDateFormat("yyyy-mm-dd");
+					Date dob =Date.valueOf(dob1);
 					System.out.println("Enter password");
 					String password1=sc1.nextLine();
 					User user1=new User("",name,address,mobileno,occupation,dob,password1);
@@ -237,14 +243,31 @@ public class Client {
 	
 
 		} else if (roletype.equals("Manager")) {
+			Scanner sc2 = new Scanner(System.in);
 			System.out.println("Press 1 view customer details , press 2 for account details,press 3 for quit");
+			int choice =s.nextInt();
+			switch(choice){
+			case 1:
+				System.out.println("Please enter the userid to view user details:");
+				int userID = sc2.nextInt();
+				user =	mService.getCustomerDetails(userID);
+				System.out.println(user);
+				break;
+			case 2:
+				System.out.println("Please enter the pattern to view thw Account details:");
+				String substring = sc2.nextLine();
+				user = mService.getCustomerAccountDetailsStringPattern(substring);
+			case 3:
+			}
 		}
+		Scanner sc3= new Scanner(System.in);
 		System.out.println("Do you want to change your password:");
 		System.out.println("Press y to change");
-		if (s.nextLine().equalsIgnoreCase("y")) {
-			String pass = s.nextLine();
+		if (sc3.nextLine().equalsIgnoreCase("y")) {
+			String pass = sc3.nextLine();
+			String password1 = Encryption.encrypt(pass);
 			boolean a = true;
-			if (a == uService.UpdatePassword(user, pass)) {
+			if (a == uService.UpdatePassword(user, password1)) {
 				System.out.println("Your Password is Changed.");
 
 			}

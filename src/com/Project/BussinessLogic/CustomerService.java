@@ -46,7 +46,7 @@ public class CustomerService {
 			
 		}*/
 
-		public List<Transaction> ViewTranscationHistoryBetweenDates(String userId,String date1,String date2) throws SQLException{
+		public List<Transaction> ViewTranscationHistoryBetweenDates(String userId,Date date1,Date date2) throws SQLException{
 			CustomerDao customerDao = new CustomerDao();
 			return customerDao.ViewTranscationHistoryBetweenDates(userId,date1,date2);
 

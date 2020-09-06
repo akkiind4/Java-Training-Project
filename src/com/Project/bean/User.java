@@ -8,14 +8,14 @@ public class User {
 			private String address;
 			private String mobileNo;
 			private String occupation;
-			private  String dob;
+			private  Date dob;
 			private String password;
 			
 			public User(){
 			}
 
 			public User(String userId, String name, String address,
-					String mobileNo, String occupation, String dob,
+					String mobileNo, String occupation, Date date,
 					String password) {
 				super();
 				this.userId = userId;
@@ -23,7 +23,7 @@ public class User {
 				this.address = address;
 				this.mobileNo = mobileNo;
 				this.occupation = occupation;
-				this.dob = dob;
+				this.dob = date;
 				this.password = password;
 			}
 
@@ -67,11 +67,11 @@ public class User {
 				this.occupation = occupation;
 			}
 
-			public String getDob() {
+			public Date getDob() {
 				return dob;
 			}
 
-			public void setDob(String dob) {
+			public void setDob(Date dob) {
 				this.dob = dob;
 			}
 
