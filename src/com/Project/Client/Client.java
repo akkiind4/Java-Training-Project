@@ -1,5 +1,8 @@
 package com.Project.Client;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,11 +10,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
+import com.Project.BussinessLogic.AdminService;
 import com.Project.BussinessLogic.CustomerService;
 import com.Project.BussinessLogic.UserService;
 import com.Project.Dao.AdminDao;
+import com.Project.bean.Account;
 import com.Project.bean.Role;
 import com.Project.bean.Transaction;
 import com.Project.bean.User;
@@ -20,12 +27,12 @@ public class Client {
 
 	private static Scanner s;
 
-	public static void main(String[] args) throws SQLException, ParseException {
+	public static void main(String[] args) throws SQLException, ParseException, IOException {
 		boolean quit = false;
 		double balance;
 		int i = 3;
 		int temp = 3;
-		String userId = "";
+		String userId ="";
 		String password = "";
 		boolean p = false;
 		String fromDate = "";
@@ -37,11 +44,13 @@ public class Client {
 		System.out.println("Please enter your credentials:");
 
 		do {
+			Scanner sc = new Scanner(System.in);
 			s = new Scanner(System.in);
 			System.out.println("Please enter your customer id.");
-			userId = s.nextLine();
+			int	userid = sc.nextInt();
 			System.out.print("Please enter your password : ");
 			password = s.nextLine();
+			userId = Integer.toString(userid);
 			temp--;
 			user.setUserId(userId);
 			user.setPassword(password);
@@ -87,8 +96,7 @@ public class Client {
 						i--;
 						System.out
 								.println("You have "
-										+ (i)
-										+ " attempsts left,Please enter the correct choice:");
+										+ (i)+ " attempsts left,Please enter the correct choice:");
 						// throw e;
 					}
 					if (i > temp) {
@@ -148,6 +156,25 @@ public class Client {
 					for (Transaction t : transaction) {
 						System.out.println(t);
 					}
+					System.out.println("Do you want to view the transaction History in a file?");
+					System.out.println("Press y to view:");
+					String y = sc.nextLine();
+					if(y.equalsIgnoreCase("y"))
+						try {
+							cusService.ViewTranscationHistoryInFile(transaction,Integer.parseInt(userId));
+							TimeUnit.MINUTES.sleep(1);
+					       // FileWriter fwOb = new FileWriter(, false); 
+					        PrintWriter pwOb = new PrintWriter("TransactionHistory.txt");
+					        pwOb.print("");
+					        pwOb.close();
+					       // fwOb.close();
+
+						
+						} catch (NumberFormatException e) {
+							e.printStackTrace();
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 					break;
 
 				case 5:
@@ -164,7 +191,12 @@ public class Client {
 			do{
 				Scanner sc1=new Scanner(System.in);
 				quit = false;
-				AdminDao AdDao=new AdminDao();
+				Random rand=new Random();
+				AdminDao adDao=new AdminDao();
+				AdminService adServ = new AdminService();
+				Account account = new Account(Integer.toString(rand.nextInt(100000)),1000.0);
+				Role role1 = new Role("1","Customer");
+				
 				System.out.println("Press 1 to create Account, Press 2 for Deletion of Account,Press 3 for quit");
 				int choice = s.nextInt();
 				switch(choice){
@@ -181,12 +213,22 @@ public class Client {
 					String dob=sc1.nextLine();
 					System.out.println("Enter password");
 					String password1=sc1.nextLine();
-					User user1=new User("1006",name,address,mobileno,occupation,dob,password1);
-					p=AdDao.AddCustomer(user1);		
+					User user1=new User("",name,address,mobileno,occupation,dob,password1);
+					p=adServ.AddCustomer(user1,account,role1);		
 					System.out.println("New customer created.");
 					break;
 				case 2:
+					System.out.println("Enter the userId to be Deleted:");
+					int userId1=s.nextInt();
+					p=adServ.DeleteCustomer(userId1);
+					if(p==true)
+						System.out.println("Customer "+userId1+" deleted successfully");
+					else
+						System.out.println("Userid is invaild, can't delete");
+					break;
 				case 3:
+					quit = true;
+					break;
 				default:
 					System.out.println("Please enter correct option");
 				}

@@ -2,6 +2,7 @@ package com.Project.BussinessLogic;
 
 
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -48,6 +49,11 @@ public class CustomerService {
 		public List<Transaction> ViewTranscationHistoryBetweenDates(String userId,String date1,String date2) throws SQLException{
 			CustomerDao customerDao = new CustomerDao();
 			return customerDao.ViewTranscationHistoryBetweenDates(userId,date1,date2);
+
+		}	
+		public boolean ViewTranscationHistoryInFile(List<Transaction> transaction,int userId) throws IOException, SQLException, InterruptedException{
+			CustomerDao customerDao = new CustomerDao();
+			return customerDao.ViewTransactionHistoryInFile(transaction,userId);
 
 		}	
 }
