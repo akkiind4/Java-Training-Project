@@ -172,7 +172,7 @@ public class CustomerDao {
 	 */
 
 	public List<Transaction> ViewTranscationHistoryBetweenDates(String userId,
-			java.util.Date date1, java.util.Date date2) throws SQLException {
+			Date date1, Date date2) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultset = null;
@@ -184,8 +184,8 @@ public class CustomerDao {
 			preparedStatement = connection
 					.prepareStatement("SELECT * FROM transaction where transactionDate between ? and ? and userid=?");
 			preparedStatement.setInt(3,Integer.parseInt(userId));
-			preparedStatement.setDate(1,(java.sql.Date) date1);
-			preparedStatement.setDate(2,(java.sql.Date) date2);
+			preparedStatement.setDate(1,date1);
+			preparedStatement.setDate(2,date2);
 
 			resultset = preparedStatement.executeQuery();
 

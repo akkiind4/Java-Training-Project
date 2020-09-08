@@ -39,11 +39,10 @@ public class AdminDao {
 
 			int count1 = 0;
 			preparedStatement = connection.prepareStatement(SQL_INSERT);
-			// preparedStatement.setString(1,userid);
 			resultset = preparedStatement.executeQuery();
 			while (resultset.next())
 				count1 = resultset.getInt(1);
-			String userid = Integer.toString(count1); // inserting in account
+			//String userid = Integer.toString(count1); // inserting in account
 														// table
 			SQL_INSERT = "INSERT INTO account(userid,accountno,balance)"
 					+ "VALUES(?,?,?)";

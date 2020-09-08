@@ -39,22 +39,22 @@ public class Client {
 		boolean p = false;
 		String fromDate = "";
 		String toDate = "";
-		SimpleDateFormat f = new SimpleDateFormat("yyyy-mm-dd");
+	
 		
 		
 		UserService uService = new UserService();
 		User user = new User();
 		ManagerService mService = new ManagerService();
 		
-		System.out.println("Welcome to Online Banking System!!!");
+		System.out.println("\t--------------------Welcome to Online Banking System!!!----------------------");
 		System.out.println("Please enter your credentials:");
 
 		do {
 			Scanner sc = new Scanner(System.in);
 			s = new Scanner(System.in);
-			System.out.println("Please enter your customer id.");
+			System.out.print("User id:");
 			int	userid = sc.nextInt();
-			System.out.print("Please enter your password : ");
+			System.out.print("Password:");
 			password = s.nextLine();
 			userId = Integer.toString(userid);
 			temp--;
@@ -64,7 +64,7 @@ public class Client {
 			p = uService.checkValidUser(user);
 			if (p == false)
 				System.out.println("You have " + (temp)
-						+ " attempsts left,Please enter the correct choice:");
+						+ " attempts left,Please enter the correct choice:");
 			else
 				break;
 		} while (temp > 0);
@@ -80,7 +80,19 @@ public class Client {
 
 		} else {
 			System.out.println("Please give correct credentials!!!");
-			System.out.println("Incorrect customerid/password");
+			System.out.println("Incorrect userid/password");
+		}
+		Scanner sc3= new Scanner(System.in);
+		System.out.println("Do you want to change your password:");
+		System.out.println("Press y to change");
+		if (sc3.nextLine().equalsIgnoreCase("y")) {
+			String pass = sc3.nextLine();
+			String password1 = Encryption.encrypt(pass);
+			boolean a = true;
+			if (a == uService.UpdatePassword(user, password1)) {
+				System.out.println("Your Password is Changed.");
+
+			}
 		}
 		String roletype = role.getRoleName();
 		if (roletype.equals("Customer")) {
@@ -94,7 +106,8 @@ public class Client {
 						System.out
 								.println("Press 1 for Viewing Balance, Press 2 for Withdrawal, "
 
-										+ "Press 3 for Deposit, Press 4 for viewing Transaction HIstory,Press 5 for exit");
+										+ "Press 3 for Deposit, Press 4 for viewing Transaction HIstory,"
+										+ "Press 5 for exit");
 						temp--;
 						choice = s.nextInt();
 
@@ -122,13 +135,14 @@ public class Client {
 							+ cusService.getCustomerBalance(userId));
 					break;
 				case 2:
-					System.out.println("Enter the amount to be withdrawn :");
-					double amount1 = s.nextDouble();
+					
 					double cusBal = cusService.getCustomerBalance(userId);
 					if (cusBal <= 1000)
-						System.out
-								.println("The minimum balance of Rs.1000 is required.You cannot withdraw given amount.");
-					else if (amount1 <= cusBal - 1000)
+						System.out.println("The minimum balance of Rs.1000 is required."
+								+ "You cannot withdraw given amount.");
+					System.out.println("Enter the amount to be withdrawn :");
+					double amount1 = s.nextDouble();
+					 if (amount1 <= cusBal - 1000)
 						balance = cusService
 								.CustomerWithdrawal(userId, amount1);
 					else
@@ -168,8 +182,8 @@ public class Client {
 							cusService.ViewTranscationHistoryInFile(transaction,Integer.parseInt(userId));
 							TimeUnit.MINUTES.sleep(1);
 					       // FileWriter fwOb = new FileWriter(, false); 
-					        PrintWriter pwOb = new PrintWriter("TransactionHistory.txt");
-					        pwOb.print("");
+					        FileWriter pwOb = new FileWriter("TransactionHistory.csv");
+					        pwOb.write("");
 					        pwOb.close();
 					       // fwOb.close();
 
@@ -201,7 +215,8 @@ public class Client {
 				Account account = new Account(Integer.toString(rand.nextInt(100000)),1000.0);
 				Role role1 = new Role("1","Customer");
 				
-				System.out.println("Press 1 to create Account, Press 2 for Deletion of Account,Press 3 for quit");
+				System.out.println("Press 1 to create Account, Press 2 for Deletion of Account,"
+						+ "Press 3 for quit");
 				int choice = s.nextInt();
 				switch(choice){
 				case 1:
@@ -218,8 +233,8 @@ public class Client {
 				//	SimpleDateFormat f = new SimpleDateFormat("yyyy-mm-dd");
 					Date dob =Date.valueOf(dob1);
 					System.out.println("Enter password");
-					String password1=sc1.nextLine();
-					User user1=new User("",name,address,mobileno,occupation,dob,password1);
+					String password12=sc1.nextLine();
+					User user1=new User("",name,address,mobileno,occupation,dob,password12);
 					p=adServ.AddCustomer(user1,account,role1);		
 					System.out.println("New customer created.");
 					break;
@@ -243,8 +258,12 @@ public class Client {
 	
 
 		} else if (roletype.equals("Manager")) {
+			do{
+			quit = false;	
+			
 			Scanner sc2 = new Scanner(System.in);
-			System.out.println("Press 1 view customer details , press 2 for account details,press 3 for quit");
+			System.out.println("Press 1 view customer details , press 2 for account details,"
+					+ "press 3 for quit");
 			int choice =s.nextInt();
 			switch(choice){
 			case 1:
@@ -258,19 +277,11 @@ public class Client {
 				String substring = sc2.nextLine();
 				user = mService.getCustomerAccountDetailsStringPattern(substring);
 			case 3:
+				quit = true;
+				break;
 			}
-		}
-		Scanner sc3= new Scanner(System.in);
-		System.out.println("Do you want to change your password:");
-		System.out.println("Press y to change");
-		if (sc3.nextLine().equalsIgnoreCase("y")) {
-			String pass = sc3.nextLine();
-			String password1 = Encryption.encrypt(pass);
-			boolean a = true;
-			if (a == uService.UpdatePassword(user, password1)) {
-				System.out.println("Your Password is Changed.");
-
-			}
+		}while(!quit);
+		
 			s.close();
 		}
 	}

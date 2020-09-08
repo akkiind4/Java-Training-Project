@@ -29,8 +29,7 @@ public class ManagerDao {
 	  resultset=preparedStatement.executeQuery();
 	  while(resultset.next()){
 		user=new User(String.valueOf(resultset.getInt(1)),resultset.getString(2),resultset.getString
-	  (3), resultset.getString(4),resultset.getString(6),resultset.getDate(7),
-	  "****"); 
+	  (3), resultset.getString(4),resultset.getString(6),resultset.getDate(7),resultset.getString(5)); 
 	 }
 	  return user;
 	  }catch(SQLException e){

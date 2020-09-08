@@ -18,7 +18,7 @@ public class UserDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultset = null;
 		String pass=Encryption.encrypt(user.getPassword());
-		System.out.println(pass);
+		
 		String temp="select * from user where userid = ? and password = ?";
 		try{
 		connection = ConnectionFactory.getConnection();

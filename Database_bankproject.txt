@@ -1,0 +1,60 @@
+
+
+//Insertion in userrole table.
+insert into userrole(roleid,userid) values (3,1000),(2,1001);
+
+
+
+
+
+
+CREATE DATABASE bank;
+USE bank;
+CREATE TABLE user
+(
+userid int(11) NOT NULL AUTO_INCREMENT,
+name VARCHAR(30),
+address VARCHAR(30),
+mobileno VARCHAR(10),
+password VARCHAR(30),
+occupation VARCHAR(10),
+dob DATE,
+CONSTRAINT user_userid_pk PRIMARY KEY(userid)
+);
+CREATE TABLE role
+(
+roleid int(11),
+rolename VARCHAR(30),
+CONSTRAINT role_roleid_ok PRIMARY KEY(roleid),
+);
+CREATE TABLE userrole
+(
+roleid int(11),
+userid int(11),
+FOREIGN KEY (roleid) REFERENCES role(roleid),
+FOREIGN KEY (userid) REFERENCES user(userid)
+);
+
+CREATE table account
+(
+accountid int(11),
+userid int(11),
+accountno int(11),
+balance DOUBLE,
+CONSTRAINT account_accountno_ok PRIMARY KEY(accountno),
+FOREIGN KEY (userid) REFERENCES user(userid)
+);
+CREATE TABLE transaction
+(
+transactionid int(11),
+userid int(11),
+accountno int(11),
+recepientAC int(11),
+credited DOUBLE,
+debited DOUBLE,
+transactionDate DATE,
+avlbalance DOUBLE,
+CONSTRAINT transaction_transactionid_ok PRIMARY KEY(transactionid),
+FOREIGN KEY (accountno) REFERENCES account(accountno)
+FOREIGN KEY (userid) REFERENCES user(userid)
+);

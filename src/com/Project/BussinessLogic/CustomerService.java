@@ -4,7 +4,7 @@ package com.Project.BussinessLogic;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import com.Project.Dao.CustomerDao;
